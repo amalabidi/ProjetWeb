@@ -1,0 +1,5 @@
+logout:
+  path: /logout
+
+login_check:
+  path: /login_check

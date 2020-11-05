@@ -1,0 +1,130 @@
+{% extends 'base/navbar.html.twig' %}
+
+
+{% block body %}
+    <br><br><br><br>
+    <div class="container" align="center">
+    <h1>Gérer les commandes</h1>
+    {% if commandes %}
+        {% for cmd in commandes %}
+
+            <section class="ftco-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-4 ftco-animate ">
+
+                            <div class="billing-form ftco-bg-dark p-3 p-md-5">
+                                <h3 class="mb-4 billing-heading">Les Coordonnées pour la livraison</h3>
+                                <br>
+
+                                <div class="form-group">
+                                    <label>Nom d'utilisateur : </label>
+                                    {{ cmd.client.username }}
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>son adresse : </label>
+                                    {{ cmd.client.adresse }}
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>son adresse email : </label>
+                                    {{ cmd.client.adresseEmail }}
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>son numero du telephone : </label>
+                                    {{ cmd.client.numeroDeTelephone }}
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Date de la commande : </label>
+                                    {{ cmd.date.format("j/m/y") }}
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Nombre d'articles : </label>
+                                    {{ cmd |length }}
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Total : </label>
+                                    {{ cmd.total }} Dt
+                                </div>
+
+
+                                <strong> la commande
+                                    est {% if  cmd.etat %} livrée {% else %} non livrée{% endif %}</strong><br><br>
+
+                                {% if  not cmd.etat %}
+                                    <a href="{{ path('admin.livrerCommande',{'id':cmd.id}) }}"
+                                       class="btn btn-primary py-3 px-5">livrer la commande</a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <br><br>
+
+                        <div class="col-xl-8 ftco-animate ">
+                            <div class="billing-form ftco-bg-dark p-3 p-md-5">
+
+                                <table width="85%">
+
+                                    <thead class="text-primary">
+                                    <tr>
+                                        <h3>
+                                            <th>Article</th>
+
+                                            <th>Quantité</th>
+                                        </h3>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% for article in cmd.articles %}
+                                        <tr>
+
+                                            <td>{{ article.article[0].nom }}</td>
+                                            <td>{{ article.quantity }}</td>
+
+                                        </tr>
+
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            </div>
+        {% endfor %}
+        {% if nbPage is defined and nbPage >= 2 %}
+
+            <div class="row" style="margin-left: 400px">
+
+                    {% for p in 1..nbPage %}
+                        <div class="col-1 "><a
+                                    href="{{ path('admin.commande.index', {'page': p}) }}">{{ p }}</a></div>
+
+                    {% endfor %}
+
+            </div>
+        {% endif %}
+    {% else %}
+        <p>Vous n'avez pas de commandes</p>
+    {% endif %}
+    <br><br>
+    {% include 'base/Footer.html.twig' %}
+{% endblock %}

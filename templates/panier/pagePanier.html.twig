@@ -1,0 +1,255 @@
+{% extends 'base/navbar.html.twig' %}
+{% block title 'Panier' %}
+
+{% block body %}
+    <section class="home-slider owl-carousel">
+
+        <div class="slider-item" style="background-image: url(images/panier.png);" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text justify-content-center align-items-center">
+
+                    <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                        <h1 class="mb-3 mt-5 bread">Panier</h1>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="{{ path('Home.index') }}">Accueil</a></span>
+                            <span>Panier</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    {% if items | length > 0 %}
+        <section class="ftco-section ftco-cart">
+
+            <div class="container">
+                <div class="ftco-bg-dark p-3 p-md-5">
+                    <div class="row">
+                        <div class="col-md-12 ftco-animate">
+
+                            <table class="table">
+                                <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>&nbsp;<span class="icon icon-shopping_cart"></span></th>
+                                    <th colspan="2">Produit</th>
+
+                                    <th>Prix</th>
+                                    <th>Quantité</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in items %}
+                                <form action="{{ path('panier.valider',{'id': item.article.id }) }}" method="post">
+                                    <tr class="text-center">
+
+                                        <td class="product-remove">
+                                            {% if(app.user) %}
+                                            <a href="{{ path('panier.supprimerBase', {'id': item.article.id}) }}">
+                                                {% else %}
+                                                <a href="{{ path('panier.supprimer', {'id': item.article.id}) }}">
+                                                    {% endif %}
+                                                    <span class="icon-close"></span></a></td>
+
+                                        <td class="image-prod">
+                                            <div class="img"
+                                                 style="background-image:url(images/articles/{{ item.article.image }});"></div>
+                                        </td>
+
+                                        <td class="product-name">
+                                            <h3>{{ item.article.nom }}</h3>
+
+                                        </td>
+
+                                        <td class="price">{{ item.article.prix }}</td>
+
+                                        <td class="quantity">
+                                            {{ item.quantite }}
+                                        </td>
+
+                                        <td class="total">{{ item.article.prix * item.quantite }} Dt</td>
+                                    </tr><!-- END TR-->
+                                    {% endfor %}
+                                </form>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-end">
+
+                    <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
+                        <div class="ftco-bg-dark p-5 p-md-1">
+                            <div class="cart-total mb-3">
+                                <h3>Total du Panier</h3>
+                                <p class="d-flex">
+                                    <span>Total Des Articles</span>
+                                    <span>{{ total }} Dt</span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>Frais de livraison</span>
+                                    <span>10 Dt</span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>Réduction</span>
+                                    <span>0 Dt</span>
+                                </p>
+                                <hr>
+                                <p class="d-flex total-price">
+                                    <span>Total</span>
+                                    <span>{{ total  + 10.000 }} Dt</span>
+                                </p>
+                            </div>
+
+
+                            {% if app.user %}
+                                <p>
+                                    <a href="{{ path('panier.livraison', {'id': app.user.id , 'total': total}) }}"
+                                       class="btn btn-primary py-3 px-4">Valider mes achats</a></p>
+                            {% else %}
+
+                                <a href="{{ path('login',{'previous':'panier'}) }}"
+                                   class="btn btn-primary py-3 px-4">Valider mes achats</a></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    {% else %}
+        <div class="ftco-bg-dark p-3 p-md-5">
+            <p align="center">Votre panier est vide ! </p>
+        </div>
+    {% endif %}
+
+
+
+    {% include 'base/Footer.html.twig' %}
+{% endblock %}
+ {% block javascripts %}
+ {% endblock %}
+
+{#
+{% extends 'base/navbar.html.twig' %}
+{% block title 'Panier' %}
+
+{% block body %}
+    <section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image: url(images/panier.png);"   data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text justify-content-center align-items-center">
+
+                    <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                        <h1 class="mb-3 mt-5 bread">Panier</h1>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="{{ path('Home.index') }}">accueil</a></span> <span>Panier</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="ftco-section ftco-cart">
+    <div class="container">
+        {% if (items | length) %}
+        <div class="row">
+            <div class=" ftco-animate" style="width: 100%">
+                <div class="cart-list">
+                    <table class="table" >
+                        <thead class="thead-primary">
+                        <tr class="text-center">
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for item in items %}
+                        <tr class="text-center">
+
+                            <td class="product-remove">
+                                {% if(app.user) %}
+                                   <a hhref="{{ path('panier.supprimerBase', {'id': item.article.id}) }}">
+                                {% else %}
+                                    <a href="{{ path('panier.supprimer', {'id': item.article.id}) }}">
+                                        {% endif %}
+                                    <span class="icon-close"></span></a> </td>
+
+                            <td class="image-prod"><div class="img" style="background-image:url(images/articles/{{ item.article.image }});"></div></td>
+
+                            <td class="product-name">
+                                <h3>{{ item.article.nom }}</h3>
+
+                            </td>
+
+                            <td class="price">{{ item.article.prix }}</td>
+
+                            <td class="quantity">
+                                {{ item.quantite }}
+                            </td>
+
+                            <td class="total">{{ item.article.prix * item.quantite}}</td>
+                        </tr><!-- END TR-->
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
+                <div class="cart-total mb-3">
+                    <h3 class="billing-heading mb-4">Total du panier</h3>
+                    <p class="d-flex">
+                        <span>Total</span>
+                        <span>{{ total }} Dt</span>
+                    </p>
+                    <p class="d-flex">
+                        <span>Frais de livraison</span>
+                        <span>10 Dt</span>
+                    </p>
+                    <p class="d-flex">
+                        <span>Réduction </span>
+                        <span>0 Dt</span>
+                    </p>
+                    <hr>
+                    <p class="d-flex total-price">
+                        <span>Total</span>
+                        <span>{{  total +10 }} Dt</span>
+                    </p>
+                </div>
+
+                {% if app.user %}
+                    <p>
+                        <a href="{{ path('panier.livraison', {'id': app.user.id , 'total': total+10}) }}" class="btn btn-primary py-3 px-5">Valider mes achats</a>
+                    </p>
+                {%else %}
+                <p>
+                    <a href="{{ path('login') }}"
+                       class="btn btn-primary py-3 px-4">Valider mes achats</a></p>
+                {% endif %}
+
+
+            </div>
+        </div>
+        {% else %}
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <p>Le panier est vide</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+    {% include 'base/Footer.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+{% endblock %}#}

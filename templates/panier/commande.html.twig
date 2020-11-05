@@ -1,0 +1,76 @@
+{% extends 'base/navbar.html.twig' %}
+{% block title 'Les commandes' %}
+{% block body %}
+    <section class="home-slider owl-carousel">
+
+        <div class="slider-item" style="background-image: url(images/cmd.png);" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text justify-content-center align-items-center">
+
+                    <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                        <h1 class="mb-3 mt-5 bread">La liste des commandes</h1>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="{{ path('Home.index') }}">Accueil</a></span>
+                            <span> Les Commandes</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container mt-4">
+
+    {% if commande|length > 0 %}
+
+        {% for cmd in commande %}
+
+
+            <div class="col-4" style="">
+                <br>
+                <strong>Date de la commande : </strong>{{ cmd.date.format("j/m/y") }}<br>
+                <strong>Nombre d'articles : </strong>{{ cmd.articles| length }}<br>
+                <strong>Total : </strong>{{ cmd.total }}Dt<br>
+                <strong>Paiement â la livraison</strong><br>
+
+            </div>
+            <br><br>
+            <table class="col-6 table">
+                <thead>
+                <tr>
+                    <th>Article</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for article in cmd.articles %}
+                    <tr>
+
+                        <td>{{ article.article[0].nom }}</td>
+                        <td>{{ article.article[0].prix }}</td>
+                        <td>{{ article.quantity }}</td>
+
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+            <br>
+            <br>
+            <br>
+
+
+
+        {% endfor %}
+
+        </div>
+    {% else %}
+        <p>Vous n'avez pas de commandes</p>
+        <br><br>
+    {% endif %}
+    {% include 'base/Footer.html.twig' %}
+{% endblock %}

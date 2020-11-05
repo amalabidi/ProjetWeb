@@ -1,0 +1,186 @@
+{% extends 'base/navbar.html.twig' %}
+{% block title 'Livraison' %}
+{% block body %}
+    <section class="home-slider owl-carousel">
+
+        <div class="slider-item" style="background-image: url({{ asset('images/panier.png') }});"
+             data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text justify-content-center align-items-center">
+
+                    <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                        <h1 class="mb-3 mt-5 bread">Check-out</h1>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="{{ path('Home.index') }}">Accueil</a></span>
+                            <span>Panier</span> <span>Check-out</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 ftco-animate ">
+                    <div class="billing-form ftco-bg-dark p-3 p-md-5">
+                        <h3 class="mb-4 billing-heading">Vos Coordonnées pour la livraison</h3>
+                        <div class="row align-items-end">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstname">Nom d'utilisateur</label>
+                                    <br>
+                                    {{ app.user.username }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="emailaddress">Adresse email</label><br>
+                                    {{ app.user.adresseEmail }}
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="streetaddress">Adresse</label><br>
+                                    {{ app.user.adresse }}
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="postcodezip">Code Postal </label><br>
+                                    {{ app.user.codePostal }}
+
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phone">Numéro de téléphone </label><br>
+                                    {{ app.user.numeroDeTelephone }}
+                                </div>
+                            </div>
+
+                            <div class="w-100"></div>
+                            <div class="col-md-6"></div>
+                            <a href="{{ path('panier.valider', {'id': app.user.id ,'total': total  } ) }}"
+                               class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Changer les coordonnées</a>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-5 pt-3 d-flex">
+                        <div class="col-md-6 d-flex">
+                            <div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
+                                <h3 class="billing-heading mb-4">Total des achats</h3>
+                                <p class="d-flex">
+                                    <span>total </span>
+                                    <span>{{ total-10 }} Dt</span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>Frais de livraison</span>
+                                    <span>10 Dt</span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>Réduction</span>
+                                    <span>0 Dt</span>
+                                </p>
+                                <hr>
+                                <p class="d-flex total-price">
+                                    <span>Total</span>
+                                    <span>{{ total }} Dt</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="cart-detail ftco-bg-dark p-3 p-md-4">
+                                <h3 class="billing-heading mb-4">Méthode De Paiement</h3>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <label>Paiement à la livraison</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" id="myCheck" value="" class="mr-2" required>J'ai
+                                                lu et
+                                                j'accepte tous les
+                                                termes
+                                                et les conditions.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p id="text2" style="display:none;color:rgba(167,97,39,0.86)">
+                                    Vous devez d'abord accepter les conditions
+                                </p>
+                                <br>
+                                <br>
+
+
+                                <p><a id="text" onclick="myFunction()"
+                                      class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3" style="width: 250px">Commander</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .col-md-8 -->
+                <div class="col-xl-4 sidebar ftco-animate">
+                    <div class="sidebar-box ftco-animate">
+                        <div class="sidebar-box">
+
+                        </div>
+                        <div class="sidebar-box ftco-animate">
+                            <div class="categories"><h2 align="center">votre Commande</h2>
+                                <br>
+                                <h3>Article&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prix</h3>
+                                {% for item in items %}
+                                    <li><a href="#">{{ item.article.nom }}
+                                            <span>{{ item.article.formattedPrix }}Dt</span></a></li>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    {% include 'base/Footer.html.twig' %}
+{% endblock %}
+
+{% block javascript %}
+
+<
+script >
+function myFunction() {
+    var checkBox = document.getElementById("myCheck");
+    // Get the output text
+    var text = document.getElementById("text");
+    var text2 = document.getElementById("text2");
+    // If the checkbox is checked, display the output text
+    if (checkBox.checked === true) {
+        text.onclick = function () {
+            location.href = "{{ path('commande.commanderPanier', {'total': total }) }}";
+            }
+    } else {
+             text2.style.display = "block"
+
+           }
+ }
+
+    </script>
+
+{% endblock %}
