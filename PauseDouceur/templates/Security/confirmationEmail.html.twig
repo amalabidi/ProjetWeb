@@ -1,0 +1,63 @@
+{% extends 'base/navbar.html.twig' %}
+
+{% block body %}
+
+    <section class="home-slider owl-carousel">
+
+        <div class="slider-item" style="background-image:url({{ asset('images/mdp.png') }});"
+             data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text justify-content-center align-items-center">
+
+                    <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                        <h1 class="mb-3 mt-5 bread">réinitialisation mot de passe</h1>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="{{ path('Home.index') }}">Accueil</a></span>
+                            <span> Réinitialisation mot de passe</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section contact-section">
+        <div class="container mt-5">
+            <div class="row block-9 ">
+                <div class="col-md-6 ftco-animate cart-detail cart-total ftco-bg-dark p-3 p-md-4"
+                     style="margin-left: 250px">
+                    <form action="{{ path('reinitialisationMDP') }}" method="post" class="contact-form ">
+                        <h3 class="mb-4 billing-heading" align="center">Mot de passe oublié</h3>
+                        <div class="col-md-12">
+                            <p> Remplissez le formulaire ci dessous et vou recevrez un email avec un lien vers une page
+                                vous permettant de réinitialiser votre mot de passe </p>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="email">Votre adresse email * : </label>
+                            </div>
+                        </div>
+                        {% for message in app.flashes('error') %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-6" style="margin-left: 270px">
+                            <input type="hidden" name="_target_path" value="/"/>
+                            <button class="btn btn-primary py-3 px-5" type="submit">envoyer</button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'base/Footer.html.twig' %}
+{% endblock %}

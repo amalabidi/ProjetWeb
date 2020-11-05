@@ -1,0 +1,78 @@
+{% extends 'base/navbar.html.twig' %}
+{% block title %} Contact{% endblock %}
+
+{% block body %}
+    <section class="home-slider owl-carousel">
+
+        <div class="slider-item" style="background-image: url(images/contact.png);" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text justify-content-center align-items-center">
+
+                    <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                        <h1 class="mb-3 mt-5 bread">Nous contacter </h1>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="{{ path('Home.index') }}">Accueil</a></span>
+                            <span>Nous contacter</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section contact-section">
+        <div class="container mt-5">
+            <div class="row block-9">
+                <div class="col-md-4 contact-info ftco-animate billing-form ftco-bg-dark p-3 p-md-5 ">
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <h2 class="h4">Informations de contact</h2>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <p><span>Téléphone: </span> + 1235 2355 98</p>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <p><span>Email: </span> PauseDouceur_mail@yahoo.fr</p>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <p><span>Site web: </span> <a href="{{ path('Home.index') }}">PauseDouceur</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-6 ftco-animate billing-form ftco-bg-dark p-3 p-md-5">
+                    {{ form_start(form) }}
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(form.nom,'Nom complet') }}
+                                {{ form_widget(form.nom) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.sujet) }}
+                        {{ form_widget(form.sujet) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.message) }}
+                        {{ form_widget(form.message) }}
+                    </div>
+                    <div class="form-group" style="margin-left: 400px;">
+                        {{ form_widget(form.envoyer) }}
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'base/Footer.html.twig' %}
+{% endblock %}
