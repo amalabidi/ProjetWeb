@@ -1,0 +1,47 @@
+{% extends 'base/navbar.html.twig' %}
+{% block title 'mdp' %}
+
+{% block body %}
+    <section class="ftco-section contact-section">
+        <div class="container mt-5">
+            <div class="row block-9 ">
+                <div class="col-md-6 ftco-animate cart-detail cart-total ftco-bg-dark p-3 p-md-4"
+                     style="margin-left: 250px">
+                    <form action="{{ path('modifierMDP', {'email': email}) }}" method="post" class="contact-form ">
+                        <h3 class="mb-4 billing-heading" align="center">Réinitialiser votre mot de passe</h3>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="email">Votre nouveau mot de passe * : </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="password" name="password" id="password " class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="email">Confirmer votre nouveau mot de passe * : </label>
+                            </div>
+                        </div>
+                        {% for message in app.flashes('error') %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="password" name="confpassword" id="confpassword" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <input type="hidden" name="_target_path" value="/"/>
+                            <button class="btn btn-primary py-3 px-5" type="submit">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
