@@ -9,14 +9,14 @@ It is a website of a Pastry titled "PauseDouceur" using symfony 4.
 
 
 
--clone this project 
+*clone this project 
 
 
 
 
 
 
--run the command "composer install"
+*run the command "composer install"
 
 
 
